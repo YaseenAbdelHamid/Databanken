@@ -1,0 +1,61 @@
+--Oefeningen Databases Enterprise
+
+
+--Week 1
+
+--Week 2
+
+--Week 3
+
+--Week 4
+
+--Week 5
+
+--Week 6
+
+--Week 7
+--Testing
+--1.
+SELECT *
+FROM employees;
+
+SELECT *
+FROM departments;
+
+INSERT INTO departments (department_id, department_name, manager_id, mgr_start_date)
+VALUES ('12', 'HOLY', 'JEZUS', to_date('YYYY-MM-DD', '0000-12-01'));
+--**********************************************************
+--Oefeningen
+--1.
+
+--**********************************************************
+--2.
+
+--**********************************************************
+--3.
+
+--**********************************************************
+--4.
+
+--**********************************************************
+--Week 8
+
+--Week 9
+
+--Week 10
+
+--Week 11
+
+--Week 12
+
+--Week 13
+
+--Week 14
+
+--Week 15
+
+--Week 16
+
+--Week 17
+
+--Week 18

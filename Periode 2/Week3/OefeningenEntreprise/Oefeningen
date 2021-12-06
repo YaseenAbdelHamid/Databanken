@@ -1,0 +1,121 @@
+--Oefeningen Week 9
+===============================================================================================
+
+--Vraag 1:
+
+--a
+INSERT INTO employees
+(employee_id,last_name,first_name)
+VALUES('999666666','De Ridder','Martine');
+-- "pk_employees constraint conflict "unique"
+
+--b
+UPDATE employees
+SET parking_spot=1
+WHERE employee_id='999888888';
+--un_parking_spot constraint conflict "unique"
+
+--c
+INSERT INTO employees(employee_id,last_name, salary)
+VALUES('999999999','De Ridder', 99000);
+--first_nmae violates not-null constraint
+
+--d
+DELETE FROM departments
+WHERE department_id=3 ;
+--departments violates foreign key constraint "fk_emp_department_id"
+
+--e
+UPDATE employees
+SET department_id=15
+WHERE department_id=7;
+--fk_emp_department_id foreign key constraint conlict, department id not present in departments
+
+===============================================================================================
+
+--Vraag 2:
+Joosten presteerde reeds 20 u aan het nieuwe project, Bock 10 u.
+
+INSERT INTO departments
+(department_id, department_name)
+VALUES('15', 'Human Resources');
+
+INSERT INTO locations
+(department_id, location)
+VALUES('15', 'Antwerpen');
+
+INSERT INTO employees(employee_id, last_name, first_name, department_id)
+VALUES ('999999999','Janssens','Jan','15');
+
+UPDATE departments
+SET manager_id = '999999999'
+WHERE department_id = '15';
+
+INSERT INTO projects
+(project_id, project_name,location,department_id)
+VALUES ('40','Opleidingen','Antwerpen', '15');
+
+UPDATE employees
+SET department_id = 15
+WHERE employee_id IN('999111111','999333333');
+
+INSERT INTO tasks VALUES ('999333333','40','20');
+INSERT INTO tasks VALUES ('999111111', '40', '10');
+COMMIT;
+ --> COMMIT = PERMANENT GEEN UNDO MOGELIJK
+
+===============================================================================================
+--Vraag 3:
+ALTER TABLE departments
+ALTER COLUMN department_name
+SET DATA TYPE VARCHAR(25);
+===============================================================================================
+--Vraag 4:
+ALTER TABLE projects
+ADD CONSTRAINT ch_project_name
+CHECK(project_name=UPPER(project_name));
+
+UPDATE projects
+SET project_name = UPPER(project_name);
+===============================================================================================
+--Vraag 5:
+ALTER TABLE employees
+ADD COLUMN email VARCHAR(20)
+DEFAULT 'unknown'
+CONSTRAINT nn_email NOT NULL;
+===============================================================================================
+--Vraag 6:
+ALTER TABLE departments
+ALTER COLUMN department_name
+DROP NOT NULL;
+===============================================================================================
+--Vraag 7:
+ALTER TABLE employees
+DROP COLUMN email;
+===============================================================================================
+--Vraag 8:
+SELECT * FROM pg_constraint WHERE contype = 'c';
+
+ALTER TABLE projects
+DROP CONSTRAINT ch_project_name;
+===============================================================================================
+--Vraag 9:
+
+===============================================================================================
+--Vraag 10:
+ALTER TABLE departments
+ADD CONSTRAINT fk_afd_med FOREIGN KEY (manager_id) REFERENCES employees(employee_id);
+
+===============================================================================================
+--Vraag 11:
+ALTER TABLE departments
+DROP CONSTRAINT fk_afd_med;
+DROP TABLE family_members;
+DROP TABLE tasks;
+DROP TABLE employees;
+DROP TABLE projects;
+DROP TABLE locations;
+DROP TABLE departments;
+
+===============================================================================================
+

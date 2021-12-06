@@ -1,0 +1,144 @@
+
+
+--Extra Oefeningen Week 7
+
+//Oefening1 ===============================================
+        CREATE TABLE students
+        (
+        student_id CHAR(10)
+        ,
+        name VARCHAR(50)
+        ,
+        street VARCHAR(100)
+        ,
+        nr NUMERIC(4)
+        ,
+        postalcode NUMERIC(4)
+        ,
+        city VARCHAR(30)
+        ,
+        birth_date date
+        )
+        ;
+
+        --RETURN
+        SELECT *
+        FROM students;
+
+        DROP TABLE students;
+
+//Oefening2 ===============================================
+
+CREATE TABLE students
+(
+	student_id CHAR(10)
+	CONSTRAINT pk_student_id PRIMARY KEY
+	,
+	name VARCHAR(50)
+	CONSTRAINT c_name NOT NULL
+	,
+	street VARCHAR(100)
+	CONSTRAINT c_street NOT NULL
+	,
+	nr NUMERIC(4)
+	CONSTRAINT ch_nr CHECK(nr < 0)
+	CONSTRAINT c_nr NOT NULL
+	,
+	postalcode NUMERIC(4)
+	CONSTRAINT ch_postalcode CHECK(postalcode BETWEEN 1000 and 9999)
+	CONSTRAINT c_postalcode NOT NULL
+	,
+	city VARCHAR(30)
+	CONSTRAINT c_city NOT NULL
+	,
+	birth_date date
+	CONSTRAINT ch_birth_date CHECK(birth_date < Current_date)
+	CONSTRAINT c_birth_date NOT NULL
+)
+;
+
+--RETURN
+SELECT *
+FROM students;
+
+DROP TABLE students;
+
+//Oefening3 ===============================================
+
+CREATE TABLE classes
+(
+	class_id NUMERIC(4)
+	,
+	building CHAR(2)
+	,
+	floor NUMERIC(1)
+	,
+	roomnumber NUMERIC(2)
+)
+;
+
+--RETURN
+SELECT *
+FROM classes;
+
+DROP TABLE classes;
+
+//Oefening4 ===============================================
+
+CREATE TABLE classes
+(
+	class_id NUMERIC(4)
+	CONSTRAINT pk_class_id primary key
+	,
+	building CHAR(2)
+	CONSTRAINT ch_building CHECK (building IN('GR', 'PH', 'SW'))
+	,
+	floor NUMERIC(1)
+	CONSTRAINT ch_floor CHECK(floor between 0 and 5)
+	,
+	roomnumber NUMERIC(2)
+	CONSTRAINT ch_roomnumber CHECK(roomnumber > 0)
+)
+;
+
+--RETURN
+SELECT *
+FROM classes;
+
+DROP TABLE classes;
+
+//Oefening5 ===============================================
+
+//TODO
+
+//Oefening6 ===============================================
+CREATE TABLE students_classes
+(
+	studentnumber CHAR(10)
+	CONSTRAINT fk_studentnumber REFERENCES students (student_id)
+	ON DELETE CASCADE
+	,
+	classnumner NUMERIC(4)
+	CONSTRAINT fk_classnumner REFERENCES classes (class_id)
+	,
+	CONSTRAINT pk_students_classes PRIMARY kEY (studentnumber, classnumner)
+)
+;
+
+//ExtraOefeningENTREPRISE ===============================================
+
+
+
+
+
+//ExtraOefeningSTUDENTADMINISTRATION ===============================================
+
+
+
+
+
+
+
+
+
+
