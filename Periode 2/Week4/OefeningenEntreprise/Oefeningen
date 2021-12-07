@@ -1,0 +1,202 @@
+--Oefeningen
+
+--Oefening 1:
+CREATE OR REPLACE VIEW
+v_emp_sal_dep2
+AS
+SELECT
+department_id,
+SUM(salary) "Total salary cost per department"
+FROM
+employees
+GROUP BY
+department_id
+ORDER BY 1
+;
+
+SELECT *
+FROM v_emp_sal_dep2;
+
+DROP VIEW v_emp_sal_dep;
+
+--Oefening 2:
+CREATE OR REPLACE VIEW
+v_emp_child
+AS
+SELECT
+f.employee_id,
+CONCAT(first_name, '',infix,e.last_name)name_emp,e.birth_date,name
+FROM
+employees e
+JOIN
+family_members f
+ON e.employee_id = f.employee_id
+WHERE UPPER
+(relationship) IN ('SON', 'DAUGTER')
+ORDER BY 1,2;
+;
+
+SELECT * FROM v_emp_child;
+
+--Oefening 3:
+CREATE OR REPLACE VIEW
+v_emp_salary
+AS
+SELECT
+employee_id,
+first_name,
+last_name,
+salary,
+department_id
+FROM
+employees
+ORDER BY
+salary DESC
+;
+
+SELECT * FROM v_emp_salary
+
+DROP view v_emp_salary;
+
+--4
+--a.
+CREATE OR REPLACE VIEW
+v_department
+AS
+SELECT
+*
+FROM
+departments
+;
+
+--b.
+ALTER TABLE departments
+ADD dept_telnr VARCHAR(9);
+
+--c
+SELECT
+*
+FROM
+v_department
+;
+
+
+
+--d
+CREATE OR REPLACE VIEW
+v_department
+AS
+SELECT
+*
+FROM
+departments;
+
+SELECT
+*
+FROM
+v_department;
+
+--e.
+ALTER TABLE
+departments
+DROP COLUMN
+dept_telnr
+CASCADE
+;
+
+--f
+CREATE OR REPLACE VIEW
+v_department
+AS
+SELECT
+*
+FROM
+DEPARTMENTS;
+
+SELECT *
+FROM v_department;
+
+--Oefening 5
+CREATE OR REPLACE VIEW
+v_emp_salary
+AS
+SELECT
+employee_id,
+first_name,
+last_name,
+salary,
+department_id
+FROM
+employees
+WHERE
+department_id = 7
+ORDER BY
+salary DESC
+WITH CHECK OPTION;
+;
+
+SELECT * FROM v_emp_salary
+
+DROP view v_emp_salary;
+
+--Oefening 6
+/*
+GOOD QUESTION I DONT KNOW
+*/
+
+--7
+--a.
+INSERT INTO v_emp_salary
+VALUES('999999999','Jan','Janssens',35000,3);
+--b.
+--Het wordt niet weergegeven in de tabel
+--Het verwijderen en terug laten lopen
+--Dit zorgt ervoor dat er een nieuwe view wordt gemaakt
+--CHECK OPTION controleren of de gegevens in view kan gebruikt anders worden ze niet in de tabellen toegevoegd
+CREATE OR REPLACE VIEW
+v_emp_salary
+AS
+SELECT
+employee_id,
+first_name,
+last_name,
+salary,
+department_id
+FROM
+employees
+WHERE
+department_id = 7
+ORDER BY
+salary DESC
+WITH CHECK OPTION;
+;
+
+SELECT * FROM v_emp_salary;
+SELECT * FROM employees;
+
+
+--Oefening 8
+
+
+
+--Oefening 9
+CREATE OR REPLACE VIEW v_percentage_proportion
+AS
+    SELECT
+    t.employee_id,
+    s.project_id,
+    round((hours/s.sm)*100,0) as "PROC proportion"
+    FROM TASKS t
+    JOIN (
+        SELECT
+        project_id,
+        sum(hours) as sm
+            FROM TASKS
+            GROUP BY project_id
+            ORDER BY 1) as s USING (project_id)
+    ORDER BY 2,1;
+
+SELECT * FROM v_percentage_proportion
+
+
+DROP VIEW v_percentage_proportion;
