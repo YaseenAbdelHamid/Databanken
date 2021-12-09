@@ -1,0 +1,137 @@
+--Week 2
+
+--Oefening 1:
+SELECT *
+FROM projects;
+
+--Oefening 2:
+SELECT project_name, department_id
+FROM projects;
+
+--Oefening 3:
+--a
+SELECT 'project', project_id, 'is handled by', department_id
+FROM projects;
+--b
+SELECT 'project' as text, project_id, 'is handled by' as text, department_id
+FROM projects;
+--c
+SELECT 'project ' || project_id || ' is handled by ' || department_id
+FROM projects;
+
+--Oefening 4:
+/*
+Geeft het verschil in DAGEN van familieleden
+*/
+
+--Oefening 5:
+--a
+/*
+Er is geen from
+Het is tasks niet task
+Start_date bestaat niet
+*/
+--b
+/*
+Er is geen komma gezet tussen 2 waardoor salaris als department_id wordt genoemd
+*/
+
+--Oefening 6:
+SELECT DISTINCT INITCAP(city)
+FROM employees
+WHERE city IS NOT NULL;
+
+--Oefening 7:
+SELECT DISTINCT department_id,  INITCAP(city)
+FROM employees
+WHERE city IS NOT NULL;
+
+--Oefening 8:
+--a.
+SELECT CURRENT_DATE;
+--b.
+SELECT 150-150/100*15 as calculation;
+--c.
+SELECT 'SQL ' || 'Data ' || 'retrieval ' || 'Chapter 3-4' as best_course
+
+--Oefening 9:
+SELECT employee_id, name as "NAME FAMILY MEMBER", relationship, gender
+FROM family_members
+WHERE employee_id = '999111111'
+ORDER BY name ASC;
+
+--Oefening 10:
+SELECT department_id, department_name, manager_id, mgr_start_date
+FROM departments
+WHERE department_name = 'Administration';
+
+--Oefening 11:
+/*
+Hij heeft de city 'maastricht' alles is hoofdlettergevoelig
+*/
+SELECT employee_id, last_name, city
+FROM EMPLOYEES
+WHERE city LIKE '%aastricht';
+
+--Oefening 12:
+SELECT employee_id, project_id, hours
+FROM tasks
+WHERE hours BETWEEN 20 AND 35
+AND project_id = '10';
+
+--Oefening 13:
+SELECT project_id, hours
+FROM tasks
+WHERE employee_id = '999222222 '
+AND hours >= 10;
+
+--Oefening 14:
+SELECT employee_id, last_name, province
+FROM employees
+WHERE province = 'GR'
+OR province = 'NB';
+
+--Oefening 15:
+SELECT department_id, first_name
+FROM employees
+WHERE first_name = 'Douglas'
+OR first_name = 'Henk'
+OR first_name = 'Martina'
+OR first_name = 'Suzan'
+ORDER BY department_id DESC, first_name ASC;
+
+--Oefening 16:
+SELECT last_name, salary, department_id
+FROM employees
+WHERE department_id = '7'
+AND salary <= '40000'
+OR employee_id = '999666666';
+
+--Oefening 17:
+SELECT last_name, department_id
+FROM employees
+WHERE NOT city = 'Maarssen'
+AND NOT city = 'Eindhoven';
+
+--Oefening 18:
+--a
+SELECT *
+FROM tasks
+ORDER BY hours ASC NULLS FIRST;
+
+--b
+SELECT *
+FROM tasks
+ORDER BY hours DESC NULLS LAST;
+
+--Oefening 19:
+SELECT last_name, city, salary
+FROM employees
+WHERE city LIKE 'm%'
+OR city like 'O%'
+AND salary > '30000';
+
+--Oefening 20:
+SELECT name
+FROM family_members
+WHERE birth_date BETWEEN '1-JAN-1988' AND '31-DEC-1988';
